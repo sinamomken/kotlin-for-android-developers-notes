@@ -16,7 +16,22 @@ comes from the company who develops the IDE, so we Android developers are first-
   Java: Big amount of code is defensive.
       var artist: Artist? = null
       artist?.print()
+      val name = artist?.name ?: "empty"
 
 * **Functional**: Uses many concepts from functional programming: lambda exp, dealing with collections.
+
+    lambda exp:
+      view.setOnClickListener { toast("Hello world!") }
+
+
 * **Extension functions**: Extend any class without having access to the source code.
+
+      fun Fragment.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT){
+        Toast.makeText(getActivity(), message, duration).show()
+      }
+
+      fragment.toast("Hi")
+
 * **Interoperable** with java libs and code.
+
+# 3: Creating a new project
