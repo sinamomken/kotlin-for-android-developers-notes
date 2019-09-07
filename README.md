@@ -1,9 +1,9 @@
 Important notes of 'Kotlin for Android Developers' book by Antonio Leiva.
 
-# 1: Introduction
+# 1 Introduction
 This book can help you understand the various ways how Kotlin can take you one step ahead and make your code much better.
 
-## 1.1: What is Kotlin?
+## 1.1 What is Kotlin?
 And the support for this language
 comes from the company who develops the IDE, so we Android developers are first-class citizens.
 
@@ -35,7 +35,7 @@ comes from the company who develops the IDE, so we Android developers are first-
   ```
 * **Interoperable** with java libs and code.
 
-# 3: Creating a new project
+# 3 Creating a new project
 Automated convert from Java to Kotlin:
 
 `Code -> Convert Java File to Kotlin File.`
@@ -56,7 +56,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 ```
 We can use `message.text` instead of `message.setText` for free.
 
-# 4: Classes and functions
+# 4 Classes and functions
 
   * Class and its constructor:
     ```kotlin
@@ -81,6 +81,23 @@ We can use `message.text` instead of `message.setText` for free.
     ```
     * Always return a value. default = `Unit` similar to `void` in Java.
     * Single expression functions:
-    ```kotlin
-    fun add(x: Int, y: Int) : Int = x + y
-    ```
+      ```kotlin
+      fun add(x: Int, y: Int) : Int = x + y
+      ```
+    * Default value for parameters (preventing need of function overloadings):
+      ```kotlin
+      fun niceToast(message: String, length: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(this, message, length).show()
+      }
+      ```
+    * Named arguments in function calls:
+      ```kotlin
+      niceToast(message = "Hello", length = Toast.LENGTH_SHORT)
+      ```
+    * String templates: just write the $ symbol.
+      ```kotlin
+      "[$className] $message"
+      "Your name is ${user.name}"
+      ```
+
+# 5 Writing your first class
