@@ -75,10 +75,10 @@ We can use `message.text` instead of `message.setText` for free.
       class Person(firstName: String, lastName: String) : Animal(firstName)
       ```
   * Functions:
-  ```kotlin
-  fun onCreate(savedInstanceState: Bundle?){
-  }
-  ```
+    ```kotlin
+    fun onCreate(savedInstanceState: Bundle?){
+    }
+    ```
     * Always return a value. default = `Unit` similar to `void` in Java.
     * Single expression functions:
     ```kotlin
