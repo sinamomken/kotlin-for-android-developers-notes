@@ -101,3 +101,7 @@ We can use `message.text` instead of `message.setText` for free.
       ```
 
 # 5 Writing your first class
+  * Defining variables and casting with `val` and `as`:
+    ```kotlin
+    **val** forecastList = findViewById(R.id.forecast_list) **as** RecyclerView
+    ```
