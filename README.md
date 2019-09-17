@@ -130,7 +130,13 @@ We can use `message.text` instead of `message.setText` for free.
     val iHex = 0x0f // Still an Int
     val l = 3L // A Long
     val d = 3.5 // A Double
-    val f - 3.5F // A Float
+    val f = 3.5F // A Float
+    val actionBar = supportActionBar // An ActionBar
+    ```
+    But for using more generic types (polymorphism), a type must be specified.
+    ```kotlin
+    val a: Any = 23
+    val c: Context = someActivity
     ```
   * A `String` can be accessed as an array and also iterated:
     ```kotlin
@@ -146,4 +152,21 @@ We can use `message.text` instead of `message.setText` for free.
     * **immutability**: If you need a new version, a new object needs to be created. Makes software much more robust and predictable.
     * Java: most objects are mutable -> Any part of code changing object may affect rest of the app.
     * **Immutable objects** are **thread-safe** by definition.
-    * **Just use `val` as much as possible.**
+    * **Just use `val` as much as possible** (except when class constructor is not available).
+  * Properties: equivalent to fields in Java + getters + setters.
+    * Modifying default getters and setters:
+      ```kotlin
+      class Person {
+        var name: String = ""
+          get() = field.toUpperCase()
+          set(value){
+            field = "Name: $value"
+          }
+      }
+      ```
+    * Kotlin can use the property syntax when dealing with code written in Java where a getter is defined in Java.
+
+# 7 Anko and Extension functions
+  * Anko: Generation of UI layouts by code instead of XML.
+    * Using XML should be easier.
+  
