@@ -169,4 +169,24 @@ We can use `message.text` instead of `message.setText` for free.
 # 7 Anko and Extension functions
   * Anko: Generation of UI layouts by code instead of XML.
     * Using XML should be easier.
-  
+    * Anko uses **extension functions** to add new features to Android framework. Example:
+      ```kotlin
+      val forecastList: RecyclerView = find(R.id.forecast_list)
+      ```
+    * Features: instantiation of intents, navigation b/w activities, creating fragments, db access, alerts creation, etc.
+  * Extension function: adding new behavior to class without access to its source
+    * In java, this is usually implemented in utility classes with static methods.
+    * Example:
+      ```kotlin
+      fun Context.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT){
+        Toast.makeText(this, message, duration).show()
+      }
+      ```
+    * Anko includes its own `toast()` and `longToast()` extension functions.
+    * We also have extension properties:
+      ```kotlin
+        val ViewGroup.childViews: List<View>
+          get() = (0 until childCount).map { getChildAt(it) }
+      ```
+    * Extension functions don't modify the original class but are add as static import.
+    * Common practice: create files including a set of related functions.
