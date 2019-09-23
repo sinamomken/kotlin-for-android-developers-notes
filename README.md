@@ -190,3 +190,17 @@ We can use `message.text` instead of `message.setText` for free.
       ```
     * Extension functions don't modify the original class but are add as static import.
     * Common practice: create files including a set of related functions.
+
+# 8 Retrieving data from API
+  * ***OpenWeatherMap*** API can be used to retrieve weather data.
+  * Kotlin can use **Retrofit** (written in Java) for server requests.
+  * Performing a simple API request:
+    ```kotlin
+    class Request(val url: String) {
+      fun run() {
+        val forecastJsonStr = URL(url).readText()
+        Log.d(javaClass.simpleName, forecastJsonStr)
+      }
+    }
+    ```
+    * Implementation is easy using `readText()`, an extension function from Kotlin standard library.
