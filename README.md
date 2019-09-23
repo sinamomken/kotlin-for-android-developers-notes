@@ -230,3 +230,22 @@ data class Forecast(val date: Date, val temperature: Float, val details: String)
     val f2 = f1.copy(temperature = 30f)
     ```
     * Java classes (e.g. `Date` class above) are not immutable by default. To force immutability you can wrap them (e.g. `ImmutableDate` wrapping `Date`).
+    * **Declaration destructuring** = Mapping each property inside an object into a variable:
+    ```kotlin
+    val f1 = Forecast(Date(), 27.5f, "Shiny day")
+    val (date, temperature, details) = f1
+    ```
+    equals to:
+    ```kotlin
+    val date = f1.component1()
+    val temperature = f1.component2()
+    val details = f1.component3()
+    ```
+    Another example: Iterating over `Map`'s keys and values:
+    ```kotlin
+    for ((key, value) in map){
+      Log.d("map", "key:$key, value:$value")
+    }
+    ```
+
+# Parsing data
