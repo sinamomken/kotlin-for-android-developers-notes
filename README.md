@@ -249,3 +249,21 @@ data class Forecast(val date: Date, val temperature: Float, val details: String)
     ```
 
 # Parsing data
+  * Unlike Java, each `*.kt` file can contain more than 1 Kotlin class.
+  * **Gson**: to parse json to our classes. Properties must have the same name as the ones in the json, or specify a serialised name.
+  * **`companion object`** s of kotlin instead of `static` properties, constants and functions of Java:
+    ```kotlin
+    class ForecastRequest(val zipCode: String) {
+      companion object {
+        private val APP_ID = "15646a06818f61f7b8d7823ca833e1ce"
+        private val URL = "http://api.openweathermap.org/data/2.5/" +
+                "forecast/daily?mode=json&units=metric&cnt=7"
+        private val COMPLETE_URL = "$URL&APPID=$APP_ID&q="
+      }
+
+      fun execute(): ForecastResult{
+        val forecastJsonStr = URL(COMPLETE_URL + zipCode).readText()
+        return Gson.fromJson(forecastJsonStr, ForecastResult::class.java)
+      }
+    }
+    ```
