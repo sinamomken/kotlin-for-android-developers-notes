@@ -194,7 +194,7 @@ We can use `message.text` instead of `message.setText` for free.
 # 8 Retrieving data from API
   * ***OpenWeatherMap*** API can be used to retrieve weather data.
   * Kotlin can use **Retrofit** (written in Java) for server requests.
-  * Performing a simple API request:
+  * Performing a request: basics
     ```kotlin
     class Request(val url: String) {
       fun run() {
@@ -204,3 +204,29 @@ We can use `message.text` instead of `message.setText` for free.
     }
     ```
     * Implementation is easy using `readText()`, an extension function from Kotlin standard library.
+    * In Java we needed: `HttpURLConnection`, `BufferedReader` & many other checkings.
+  * Performing the request: executing out of the main thread
+    * HTTP requests are not allowed in the main thread. A common solution in Android = `AsyncTask`.
+    * `AsyncTask`s may be dangerous: When reaches `postExecute()`, activity may be destroyed.
+    * Anko: `doAsync(){}` function for executing in another thread with `uiThread{}`option for returning to the main thread:
+      ```kotlin
+      doAsync() {
+        Request(url).run()
+        uiThread { longToast("Request performed") }
+      }
+      ```
+    * `uiThread` is safe: it checks finishing or existence of the caller `Activity`.
+    * `doAsync` returns a java `Future`. For getting a future with a result use `doAsyncResult`.
+
+# 9 Data classes
+A powerful kind of classes instead of POJO classes in Java.
+```kotlin
+data class Forecast(val date: Date, val temperature: Float, val details: String)
+```
+  * Data class extra functions: ‍‍‍`equals()`, `hashCode()`, `copy()`, etc.
+  * Use of `copy` when using immutability:
+    ```kotlin
+    val f1 = Forecast(Date(), 27.5f, "Shiny day")
+    val f2 = f1.copy(temperature = 30f)
+    ```
+    * Java classes (e.g. `Date` class above) are not immutable by default. To force immutability you can wrap them (e.g. `ImmutableDate` wrapping `Date`).
