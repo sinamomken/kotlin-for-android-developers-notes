@@ -282,3 +282,21 @@ data class Forecast(val date: Date, val temperature: Float, val details: String)
   * `with` function in standard Kotlin library:
     * Gets an object and an extension function as parameters, runs the function on the object.
     * Really helpful when doing several operations overt the same object.
+
+# 11 Operator overloading
+  * Implement a function with a reserved name mapped to the symbol.
+    ```kotlin
+    a++ -> a.unaryPlus()
+    a..b -> a.rangeTo(b)
+    a[i] -> a.get(i)
+    a[i]=b -> a.set(i,b)
+    a==b -> a?.equals(b)?:b===null
+    a(i) -> a.invoke(i)
+    ```
+  * Improves code readability and simplicity.
+  * The reserved function must be annotated with `operator` modifier.
+  * Types of operators: unary, binary, array-like, equals, function invocation
+  * equal operator (==) must be implemented exactly like this"
+    ```kotlin
+    operator fun equals(other: Any?): Boolean
+    ```
