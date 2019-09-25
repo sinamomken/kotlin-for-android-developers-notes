@@ -248,7 +248,7 @@ data class Forecast(val date: Date, val temperature: Float, val details: String)
     }
     ```
 
-# Parsing data
+# 10 Parsing data
   * Unlike Java, each `*.kt` file can contain more than 1 Kotlin class.
   * **Gson**: to parse json to our classes. Properties must have the same name as the ones in the json, or specify a serialised name.
   * **`companion object`** s of kotlin instead of `static` properties, constants and functions of Java:
@@ -267,3 +267,18 @@ data class Forecast(val date: Date, val temperature: Float, val details: String)
       }
     }
     ```
+  * Every function in Kotlin returns a value. If nothing specified, returns an object of `Unit` class.
+  * Definition of a `Command` interface:
+    ```kotlin
+    public interface Command<out T>{
+      fun execute(): T
+    }
+    ```
+  * In this architecture, 1st we retrieve data from API and fill `data class`es in **data** package using Gson, and then convert needed info into **domain** `data class`es.
+  * We can convert a list easily without directly using loops by using functional operations over lists:
+    ```kotlin
+    return list.mapIndexed {i, forecast -> ...}
+    ```
+  * `with` function in standard Kotlin library:
+    * Gets an object and an extension function as parameters, runs the function on the object.
+    * Really helpful when doing several operations overt the same object.
