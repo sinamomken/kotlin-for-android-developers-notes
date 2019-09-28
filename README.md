@@ -300,3 +300,27 @@ data class Forecast(val date: Date, val temperature: Float, val details: String)
     ```kotlin
     operator fun equals(other: Any?): Boolean
     ```
+  * Kotlin lists have the array-like operations.
+  * We could extend **existing classes** using ***extension functions*** to provide **<u>new operators</u>** on them.
+
+# 12 Making the forecast list clickable
+  * ***Picasso***: An image loader library, like *glide*.
+  * Defining a setOnClickListener interface with `invoke()` operator can simplify call of the listener:
+    ```kotlin
+    interface OnItemClickListener{
+      operator fun invoke(forecast: Forecast)
+    }
+
+    itemclick.invoke(forecast)
+    itemclick(forecast)
+    ```
+  * Implementing an anonymous class in Kotlin: Create an `object` (not `Object`) implementing the desired interface
+    ```kotlin
+    view.setOnClickListener(
+      object: OnItemClickListener{
+          override fun invoke(item: Item){
+              toast(item.text)
+          }
+      })
+    ```
+    * It's not nice. We should instead make use of functional programming with lambdas.
