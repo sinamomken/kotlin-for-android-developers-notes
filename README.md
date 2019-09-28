@@ -324,3 +324,5 @@ data class Forecast(val date: Date, val temperature: Float, val details: String)
       })
     ```
     * It's not nice. We should instead make use of functional programming with lambdas.
+
+# Lambdas
