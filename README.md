@@ -326,3 +326,34 @@ data class Forecast(val date: Date, val temperature: Float, val details: String)
     * It's not nice. We should instead make use of functional programming with lambdas.
 
 # Lambdas
+Lambda expression = Simple way to define an anonymous function (a function w/o name).
+  * In Kotlin a function behaves as a type, so it can be:
+    * passed as an argument
+    * returned by a function
+    * saved into a var or property
+  * Any function that receives an <u>interface with a single function</u> can be substituted by a <u>lambda</u>.
+    * Like `setOnClickListener()` is defined as:
+      ```kotlin
+      fun setOnClickListener(listener: (View) -> Unit) // a higher order fun accepting another fun
+      ```
+    * Unlike Java, a *SAM (Single Abstract Method) Interface* `val` ~can't be passed~ instead of a *lambda* function `val`.
+  * Without lambda expression:
+    ```kotlin
+    view.setOnClickListener(object: OnClickListener{
+        override fun onClick(v: View){
+          toast("Click")
+        }
+      })
+    ```
+    With lambda expression:
+    ```kotlin
+    view.setOnClickListener({ view -> toast("Click")})
+    // or
+    view.setOnClickListener({toast("Click")}) //input values are of no use
+    // or
+    view.setOnClickListener(){toast("Click")} //if the last argument is a (lambda) function
+    // or
+    view.setOnClickListener{ toast("Click") } //if function is the only parameter
+    ```
+    Unlike Java, in Kotlin we must use `{}` for defining lambda expressions.
+  * 
