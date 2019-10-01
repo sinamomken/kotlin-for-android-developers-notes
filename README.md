@@ -380,3 +380,20 @@ Lambda expression = Simple way to define an anonymous function (a function w/o n
     ```
 
 # Visibility Modifiers
+  * Modifiers:
+    * private
+      * `private` class: Not accessible outside the file where it was defined.
+    * protected
+    * internal: visible inside the whole module if it's a package member. We can use internal classes from any other class in the same module.
+      * module = Android Studio modules = can be compiled, run, tested and debugged independently.
+    * public
+      * Default modifier in Kotlin
+  * Constructors: public by default
+  * Note: No need to specify the return type of a function if can be computed by the compiler.
+    ```kotlin
+    operator fun get(position: Int) = dailyForecast[position]
+    // instead of
+    operator fun get(position: Int): Forecast = dailyForecast[position]
+    ```
+
+# Kotlin Android Extensions
