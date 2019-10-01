@@ -356,4 +356,27 @@ Lambda expression = Simple way to define an anonymous function (a function w/o n
     view.setOnClickListener{ toast("Click") } //if function is the only parameter
     ```
     Unlike Java, in Kotlin we must use `{}` for defining lambda expressions.
-  * 
+  * In lambdas with only one argument, we can ignore the argument and use **`it`**.
+    ```kotlin
+    val adapter = ForecastListAdapter(result) { toast(it.date) }
+    ```
+  * Unusable knowledge: A simple Implementation of `with` in Kotlin:
+    ```kotlin
+    inline fun <T> with(t: T, body: T.() -> Unit) { t.body() }
+    // Gets an object of type T and a function that will be used as an extension function.
+    ```
+  * Benefit of an inline function: Reduces memory allocations and runtime overhead in some situations.
+    * Useful example:
+    ```kotlin
+    inline fun supportsLollipop(code: () -> Unit){
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        code()
+      }
+    }
+
+    supportsLollipop{
+      window.setStatusBarColor(color.BLACK)
+    }
+    ```
+
+# Visibility Modifiers
