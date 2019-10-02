@@ -421,3 +421,17 @@ How to use it in our code:
       * If your layout is complex, this may make it slower, specially the `RecyclerView` performance.
 
 # 16 Application Singleton and Delegated Properties
+Old (not recommended) way of creating a singleton, like in Java:
+```kotlin
+class App :‌Application(){
+  companion object{
+    private var instance: Application? = null
+    fun instance() = instance!!
+  }
+
+  override fun onCraete(){
+    super.onCreate()
+    instance = this
+  }
+}
+```
