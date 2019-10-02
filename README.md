@@ -325,7 +325,7 @@ data class Forecast(val date: Date, val temperature: Float, val details: String)
     ```
     * It's not nice. We should instead make use of functional programming with lambdas.
 
-# Lambdas
+# 13 Lambdas
 Lambda expression = Simple way to define an anonymous function (a function w/o name).
   * In Kotlin a function behaves as a type, so it can be:
     * passed as an argument
@@ -379,7 +379,7 @@ Lambda expression = Simple way to define an anonymous function (a function w/o n
     }
     ```
 
-# Visibility Modifiers
+# 14 Visibility Modifiers
   * Modifiers:
     * private
       * `private` class: Not accessible outside the file where it was defined.
@@ -396,4 +396,28 @@ Lambda expression = Simple way to define an anonymous function (a function w/o n
     operator fun get(position: Int): Forecast = dailyForecast[position]
     ```
 
-# Kotlin Android Extensions
+# 15 Kotlin Android Extensions
+  * View binder: Automatically creates a set of properties giving access to all views in a XML. So we don't need to explicitly find all the views in the layout before use.
+    * Names come from ids of the views. So XML `id`s should not have `_` and must be in CamelCase format.
+    * Types also taken from the XML.
+  * Benefit: Doesn't add any extra libs to our code. Instead consists of a **plugin** generating the code.
+    * Plugin substitutes properties call into a function requesting the view.
+
+How to add it to our project:
+```groovy
+apply plugin: 'kotlin-android-extensions'
+```
+
+How to use it in our code:
+  * In Activities or Fragments (regular):
+    * `import kotlinx.android.synthetic` + name of the XML. ex:
+      `import kotlinx.android.synthetic.main.activity_main`
+    * We can access teh views after `setContentView`.
+  * In Views: we may need to access XML views in many other parts of the code.
+    * `import kotlinx.android.synthetic.main.view_item.view.*`
+    * Access by `itemView.textView.text = "Hello"`.
+    * It won't cache the views.
+      * Every bind will do `findViewById` under the hood for all subviews.
+      * If your layout is complex, this may make it slower, specially the `RecyclerView` performance.
+
+# 16 Application Singleton and Delegated Properties
