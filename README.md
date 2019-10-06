@@ -421,17 +421,80 @@ How to use it in our code:
       * If your layout is complex, this may make it slower, specially the `RecyclerView` performance.
 
 # 16 Application Singleton and Delegated Properties
-Old (not recommended) way of creating a singleton, like in Java:
-```kotlin
-class App :‌Application(){
-  companion object{
-    private var instance: Application? = null
-    fun instance() = instance!!
-  }
+  * Old (not recommended) way of creating a singleton, like in Java:
+    ```kotlin
+    class App :‌Application(){
+      companion object{
+        private var instance: Application? = null
+        fun instance() = instance!!
+      }
 
-  override fun onCraete(){
-    super.onCreate()
-    instance = this
-  }
-}
-```
+      override fun onCraete(){
+        super.onCreate()
+        instance = this
+      }
+    }
+    ```
+  * Interesting behaviors in a property: **Lazy values** and **Observable properties**.
+  * **Property Delegate**: Instead of having to declare the same code over and over again, delegate the code a property needs to another class (property delegate).
+    * Ex: Delegating `get` or `set` of a property to another class:
+      ```kotlin
+      class Delegate<T> {
+        operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
+          return ...
+        }
+        operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+          ...
+        }
+      }
+
+      class Example{
+        var p: String by Delegate()
+      }
+      ```
+      `T`: type of the property delegating its behavior
+      `thisRef`: reference to class of the property
+      `property`: metadata of the property
+      `by`: reserved word to specify the delegation.
+  * Standard delegates in Kotlin Standard Library:
+    * **lazy**: takes a lambda executed *first* time `getValue` is called.
+      * ex:
+        ```kotlin
+        class App : Application() {
+          val database: SQLiteOpenHelper by lazy {
+            MyDatabaseHelper(applicationContext)
+          }
+
+          override fun onCreate() {
+            super.onCreate()
+            val db = database.writableDatabase
+          }
+        }
+        ```
+      * Subsequent calls will return the same value.
+      * Interesting when the property is not always required.
+        * saves memory
+      * Needed when some other parts must be ready before this one.
+        * in ex above we are sure `applicationContext` exists during initialization.
+      * `lazy` is thread safe by default.
+    * **observable**: takes a lambda executed after *every* time `set` function is called.
+      * Helps us detect changes on any property we need to observe.
+      * In the observable we receive 'delegated property', 'old value' and 'new value'.
+      * ex:
+        ```kotlin
+        class ViewModel(val db: MyDatabase) {
+          var myProperty by Delegates.observable("") {
+            _, _, new -> db.saveChanges(this, new)
+          }
+        }
+        ```
+      * Note: you can use `_` for unused lambda arguments.
+    * **vetoable**: a special kind of observable deciding whether the value must be saved?
+      * ex:
+        ```kotlin
+        var positiveNumber = Delegates.vetoable(0){
+          _, _, new -> new >= 0
+        }
+        ```
+      * Can be used to check some conditions before saving a value.
+    * **lateinit**:
