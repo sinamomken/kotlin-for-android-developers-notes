@@ -423,13 +423,27 @@ How to use it in our code:
 # 16 Application Singleton and Delegated Properties
   * Old (not recommended) way of creating a singleton, like in Java:
     ```kotlin
-    class App :‌Application(){
+    class App :‌ Application(){
       companion object{
         private var instance: Application? = null
         fun instance() = instance!!
       }
 
       override fun onCraete(){
+        super.onCreate()
+        instance = this
+      }
+    }
+    ```
+  * Reimplementing App singleton in Kotlin (using concepts below):
+    ```kotlin
+    class App : Application(){
+      companion object{
+        lateinit var instance: App
+          private set
+      }
+
+      override fun onCreate(){
         super.onCreate()
         instance = this
       }
@@ -497,4 +511,39 @@ How to use it in our code:
         }
         ```
       * Can be used to check some conditions before saving a value.
-    * **lateinit**:
+    * **lateinit**: not a delegate, but a property modifier.
+      * A non abstract property must have a value before finish of the constructor, which may not be available in Activities, etc. **Solutions**:
+        1. Define property as *nullable* and set it to null. **Drawback**: we need to check nullity every time. If property won't be null when used -> unnecessary code. (Java & Kotlin)
+        2. **`lateinit`**: Property should have non-nullable value but its assignment will be delayed. If the value is requested before being assigned -> throws an exception.
+      * ex:
+        ```kotlin
+        class App : Application() {
+          companion object {
+            lateinit var instance: App
+          }
+
+          override fun onCreate() {
+            super.onCreate()
+            instance = this
+          }
+        }
+        ```
+      * **NOTE**: `lateinit` can only be used for `var`.
+    * **by map**: delegates value of a property to be filled from a map (taken in constructor); name of the property = key of the map.
+      * ex:
+        ```kotlin
+        class Configuration(map: Map<String, Any?>) {
+          val width: Int by map
+          val height: Int by mapped
+          val dp: Int by mapped
+          val deviceName: String by map
+        }
+
+        val conf = Configuration(mapOf(
+            "width" to 1080,
+            "height" to 720,
+            "dp" to 240,
+            "deviceName" to "mydevice"
+          ))
+        ```
+      * Easily creates an object from a dynamic map.
