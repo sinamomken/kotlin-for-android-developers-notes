@@ -547,3 +547,7 @@ How to use it in our code:
           ))
         ```
       * Easily creates an object from a dynamic map.
+
+# 17 Craeting an SQLiteOpenHelper
+### Dependency injection using Dagger:
+  * 
