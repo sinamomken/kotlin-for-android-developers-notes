@@ -548,6 +548,7 @@ How to use it in our code:
         ```
       * Easily creates an object from a dynamic map.
 
-# 17 Craeting an SQLiteOpenHelper
+# 17 Creating an SQLiteOpenHelper
+  * Old way to get objects from DB: Write SQL sentences, then map objects into `ContentValues` or take them from `Cursors`.
+  * New way: Use ORMs for Android like **GreenDAO** or **Room** (google jetpack).
 ### Dependency injection using Dagger:
-  * 
