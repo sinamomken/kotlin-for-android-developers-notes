@@ -551,4 +551,41 @@ How to use it in our code:
 # 17 Creating an SQLiteOpenHelper
   * Old way to get objects from DB: Write SQL sentences, then map objects into `ContentValues` or take them from `Cursors`.
   * New way: Use ORMs for Android like **GreenDAO** or **Room** (google jetpack).
-### Dependency injection using Dagger:
+
+## Dependency injection using Dagger:
+Instead of *instantiating collabators inside the class*, we provide them **via constructor**.
+  * More **testable**, easy to extend and maintain.
+    * Substitute collaborators with other objects (same interface) or make use of **mocks** in tests.
+
+**Dagger**: Most popular dependency injector for Android.
+  * Simpler alternative = use of default values in constructors.
+    ```kotlin
+    class ForecastDbHelper(ctx: Context = App.instance){
+      ...
+    }
+
+    val dbHelper1 = ForecastDbHelper() // It will use App.instance
+    val dbHelper2 = ForecastDbHelper(mockedContext) // For tests, for example
+    ```
+
+# 18 Collections and functional operations
+Functional programming advantage: We just say **what we want to do**, *not explaining how to do it*.
+  * Ex. filtering a list:
+    * Non-functional: creat a list, iterate over original list and add selected items to the new list.
+    * Functional: use a filter function with a specified filter.
+  * Say a lot more using less code.
+  
+Kotlin native **collection**-related interfaces:
+  * **Iterable**: the parent interface.
+  * **MutableIterable**
+  * **Collection**: including functions for *size*, *is empty*, *contains* & etc.
+  * **MutableCollection**: plus *add*, *remove*, *clear*, etc.
+  * **List**: ordered. Get an item by `get(position)` function.
+  * **MutableList**
+  * **Set**: unordered, no duplicate elements allowed.
+  * **MutableSet**
+  * **Map**: a collection of key-value pairs.
+  * **MutableMap**
+
+**Functional operations** available over different collections:
+  * a
