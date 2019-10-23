@@ -588,4 +588,7 @@ Kotlin native **collection**-related interfaces:
   * **MutableMap**
 
 **Functional operations** available over different collections:
-  * a
+  * **any**: `true` if any member matches condition.
+  * **all**: `true` if all members match condition.
+  * **count**: number of elements matching condition.
+  * **fold**: 
