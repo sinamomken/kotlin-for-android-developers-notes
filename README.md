@@ -588,7 +588,23 @@ Kotlin native **collection**-related interfaces:
   * **MutableMap**
 
 **Functional operations** available over different collections:
-  * **any**: `true` if any member matches condition.
-  * **all**: `true` if all members match condition.
-  * **count**: number of elements matching condition.
-  * **fold**: 
+  * **any{condition}**: `true` if any member matches condition.
+  * **all{condition}**: `true` if all members match condition.
+  * **count{condition}**: number of elements matching condition.
+  * **fold(initial_value){total, next->total+next}**: applies an operation from 1st to last element, putting result in total.
+  * **foldRight**: same as **fold** but from last to 1st element.
+  * **forEach{operation}**: performs operation to each element.
+  * **forEachIndexed{index, value -> function of index and value}**: same as **forEach** but operation is function of **index** and **value**.
+  * **max()**: largest element or `null`.
+  * **maxBy{function}**: largest value of the function on the collection.
+  * **min()**
+  * **minBy(function)**
+  * **none{condition}**: `true` if no element match the condition.
+  * **reduce{total, next->total+next}**: same as **fold** but without initial_value.
+  * **reduceRight**: same as **reduce** but form last to 1st element.
+  * **sumBy{operation}**: sum of transformation of all elements.
+**Filtering operations**:
+  * **drop(n)**: a list containing all but 1st n elements.
+  * **dropWhile{condition}**: a list containing all except 1st elements satisfying the condition.
+  * **dropLastWhile{condition}**: a list containing all except last elements satisfying the condition.
+  * **filter**: 
